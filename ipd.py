@@ -1,12 +1,12 @@
 import constants as cn
 import numpy as np
 
-from saha import get_ionization_n_moment
+from saha import get_mean_ionization, get_mean_square_ionization
 
 
 def get_debye_length(ion_pop_list: list[float], t_elec: float, d_elec: float) -> float:
-    mean_ion = get_ionization_n_moment(1, ion_pop_list)
-    mean_ion2 = get_ionization_n_moment(2, ion_pop_list)
+    mean_ion = get_mean_ionization(ion_pop_list)
+    mean_ion2 = get_mean_square_ionization(ion_pop_list)
 
     return np.sqrt(
         (t_elec * cn.EPS0) / (4 * cn.PI * (d_elec / mean_ion) * (mean_ion + mean_ion2))
