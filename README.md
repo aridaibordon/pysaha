@@ -9,4 +9,4 @@ PySaha is a python implementation of the Saha ionization equation to solve ionic
 Corrections due to plasma environment to the isolated atomic levels are included as a static correction to the ionization energy. All models available are included in the ipd.py file.
 
 ## Usage
-The main functionality is included in the `solve_saha` function that takes as parameters the element symbol, its atomic number and the electronic temperature and density (expressed in eV and particles per cubic centimeter). Corrections to the ionization energy can be included as a list.
+The main functionality is included in the `solve_saha` function that takes as parameters the element symbol, its atomic number and the electronic temperature and density (expressed in eV and particles per cubic centimeter).
