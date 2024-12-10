@@ -119,19 +119,6 @@ def get_saha_rel_lev_pop(
     return pop_lev_list
 
 
-def get_saha_lev_pop(
-    elem: str, elem_z: int, t_elec: float, d_elec: float, ipd_correction: float = 0.0
-):
-    pop_ion_list = solve_saha(elem, elem_z, t_elec, d_elec, ipd_correction)
-
-    pop_rel_lev_list = get_saha_rel_lev_pop(
-        elem, elem_z, t_elec, d_elec, ipd_correction
-    )
-
-    mean_ionization = get_mean_ionization(pop_ion_list)
-    return [pop_lev * d_elec / mean_ionization for pop_lev in pop_rel_lev_list]
-
-
 def get_mean_ionization(pop_ion_list: list[float]) -> float:
     return np.sum([zeta * pop for zeta, pop in enumerate(pop_ion_list)])
 
