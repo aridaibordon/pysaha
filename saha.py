@@ -93,7 +93,7 @@ def solve_saha(
             * np.exp(-(ionization_energy - prev_ipd) / t_elec)
             * pop_ion_list[nion - 1]
         )
-    return [pop / sum(pop_ion_list) for pop in pop_ion_list]
+    return np.asarray([pop / sum(pop_ion_list) for pop in pop_ion_list])
 
 
 def get_saha_rel_lev_pop(
