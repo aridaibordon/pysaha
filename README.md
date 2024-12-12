@@ -10,3 +10,30 @@ Corrections due to plasma environment to the isolated atomic levels are included
 
 ## Usage
 The main functionality is included in the `solve_saha` function that takes as parameters the element symbol, its atomic number and the electronic temperature and density (expressed in eV and particles per cubic centimeter).
+
+Different standard models for the ionization potential depression are included in the ipd.py file.
+
+**Code example**
+```python
+from pysaha import solve_saha, ipd
+
+
+POP_THRESHOLD = 1e-3
+
+# define element parameters and plasma conditions
+elem, elem_z = "C", 6
+t_elec, d_elec = 50, 1e23
+
+# run saha solver without ionization potential depression
+prev_pop = solve_saha(elem, elem_z, t_elec, d_elec)
+
+# run saha solver until populations converge
+while True:
+    ipd = ipd.sp(elem, elem_z, t_elec, d_elec, prev_pop)
+    pop = solve_saha(elem, elem_z, t_elec, d_elec, ipd)
+
+    if abs(pop - prev_pop).max() < POP_THRESHOLD:
+        break
+
+    prev_pop = pop
+```
