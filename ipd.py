@@ -17,7 +17,7 @@ def get_ionic_radius(nion, d_elec):
     return ((3 * (nion + 1)) / (4 * cn.PI * d_elec)) ** (1 / 3)
 
 
-def get_sp_ipd_nion(
+def sp_ion(
     elem: str, nion: int, ion_pop_list: list[float], t_elec: float, d_elec: float
 ) -> float:
     h_ionization_energy = cn.IONIZATION_ENERGY["H"][0]
@@ -35,7 +35,7 @@ def get_sp_ipd_nion(
     )
 
 
-def get_sp_ipd_elem(
+def sp(
     elem: str,
     elem_z: int,
     t_elec: float,
@@ -44,9 +44,34 @@ def get_sp_ipd_elem(
 ) -> list[float]:
     return [
         (
-            get_sp_ipd_nion(elem, nion, ion_pop_list, t_elec, d_elec)
+            sp_ion(elem, nion, ion_pop_list, t_elec, d_elec)
             if nion < elem_z
             else 0.0
         )
         for nion in range(elem_z + 1)
     ]
+
+
+def sp_average(
+    elem: str,
+    elem_z: int,
+    t_elec: float,
+    d_elec: float,
+    ion_pop_list: list[float],
+):
+    h_ionization_energy = cn.IONIZATION_ENERGY["H"][0]
+    mean_ion = get_mean_ionization(ion_pop_list)
+
+    debye_length = get_debye_length(ion_pop_list, t_elec, d_elec)
+    mean_R = get_ionic_radius(mean_ion, d_elec)
+    ratio_debye_R = debye_length / mean_R
+
+    sp_average_ipd = (
+        3
+        * h_ionization_energy
+        * (cn.A0 / mean_R)
+        * (mean_ion + 1)
+        * ((1 + ratio_debye_R**3) ** (2 / 3) - ratio_debye_R**2)
+    )
+
+    return [sp_average_ipd for nion in range(elem_z + 1)]
