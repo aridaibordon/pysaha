@@ -1,4 +1,4 @@
-import ipd
-import saha
+import pysaha.ipd as ipd
+import pysaha.saha as saha
 
-from saha import solve_saha
+from pysaha.saha import solve_saha

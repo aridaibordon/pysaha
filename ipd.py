@@ -1,7 +1,7 @@
-import constants as cn
+import pysaha.constants as cn
 import numpy as np
 
-from saha import get_mean_ionization, get_mean_square_ionization
+from pysaha.saha import get_mean_ionization, get_mean_square_ionization
 
 
 def get_debye_length(ion_pop_list: list[float], t_elec: float, d_elec: float) -> float:

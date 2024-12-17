@@ -3,7 +3,7 @@ import numpy as np
 
 from fac_utils.read import read_lev
 
-import constants as cn
+import pysaha.constants as cn
 
 
 ATOMIC_PATH = "data/atomic"
