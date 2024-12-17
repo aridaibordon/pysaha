@@ -29,8 +29,8 @@ prev_pop = solve_saha(elem, elem_z, t_elec, d_elec)
 
 # run saha solver until populations converge
 while True:
-    ipd = ipd.sp(elem, elem_z, t_elec, d_elec, prev_pop)
-    pop = solve_saha(elem, elem_z, t_elec, d_elec, ipd)
+    pop_ipd = ipd.sp(elem, elem_z, t_elec, d_elec, prev_pop)
+    pop = solve_saha(elem, elem_z, t_elec, d_elec, pop_ipd)
 
     if abs(pop - prev_pop).max() < POP_THRESHOLD:
         break
