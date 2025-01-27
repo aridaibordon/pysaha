@@ -24,6 +24,7 @@ def sp_ion(
 
     debye_length = get_debye_length(ion_pop_list, t_elec, d_elec)
     R_zeta = get_ionic_radius(nion, d_elec)
+
     ratio_debye_R = debye_length / R_zeta
 
     return (
@@ -43,11 +44,7 @@ def sp(
     ion_pop_list: list[float],
 ) -> list[float]:
     return [
-        (
-            sp_ion(elem, nion, ion_pop_list, t_elec, d_elec)
-            if nion < elem_z
-            else 0.0
-        )
+        (sp_ion(elem, nion, ion_pop_list, t_elec, d_elec) if nion < elem_z else 0.0)
         for nion in range(elem_z + 1)
     ]
 

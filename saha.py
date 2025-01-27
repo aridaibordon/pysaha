@@ -17,10 +17,10 @@ def compute_start_ion(elem: str, elem_z: int, ipd_list: list) -> int:
     elem_ionization_energy = cn.IONIZATION_ENERGY[elem]
 
     for nion, ipd in enumerate(ipd_list):
+        if elem_z == nion:
+            return elem_z
         if ipd < elem_ionization_energy[nion]:
             return nion
-
-    return elem_z
 
 
 def get_internal_partition_function(
@@ -97,12 +97,9 @@ def solve_saha(
 
 
 def get_saha_rel_lev_pop(
-    elem: str, elem_z: int, t_elec: float, d_elec: float, ipd_correction: float = 0.0
+    elem: str, elem_z: int, t_elec: float, d_elec: float, pop_ion_list: list
 ):
-    pop_ion_list = solve_saha(elem, elem_z, t_elec, d_elec, ipd_correction)
-
     pop_lev_list = []
-
     for nion in range(0, elem_z + 1):
         nelec = elem_z - nion
 
