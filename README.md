@@ -24,7 +24,7 @@ POP_THRESHOLD = 1e-3
 elem, elem_z = "C", 6
 t_elec, d_elec = 50, 1e23
 
-# run saha solver without ionization potential depression
+# run saha solver first iteration
 prev_pop = solve_saha(elem, elem_z, t_elec, d_elec)
 
 # run saha solver until populations converge
@@ -36,4 +36,7 @@ while True:
         break
 
     prev_pop = pop
+
+# pop returns the ionic populations ordered by charge.
+print(pop)
 ```
